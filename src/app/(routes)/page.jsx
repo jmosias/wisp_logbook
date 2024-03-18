@@ -1,9 +1,7 @@
-import NavBar from "./components/NavBar";
-
 export default async function Home() {
   return (
     <main>
-      <NavBar />
+      <h2>Welcome to Wisp</h2>
     </main>
   );
 }

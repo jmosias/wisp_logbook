@@ -1,4 +1,4 @@
-import { getAllProductCollections } from "../api";
+import { getAllProductCollections } from "../_api";
 import NavSelect from "./NavSelect";
 
 export default async function NavBar() {

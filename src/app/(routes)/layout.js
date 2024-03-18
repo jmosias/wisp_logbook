@@ -1,6 +1,6 @@
 import { Krub } from "next/font/google";
-import "./globals.css";
-import UIProvider from "./components/UIProvider";
+import "../globals.css";
+import UIProvider from "../_components/UIProvider";
 
 const krub = Krub({
   subsets: ["latin"],
