@@ -15,21 +15,21 @@ module.exports = {
       themes: {
         light: {
           colors: {
-            background: "#ffffff",
-            foreground: "#151515",
+            background: "#FAF5F0",
+            foreground: "#262322",
             primary: {
-              DEFAULT: "#81667A",
-              foreground: "#151515",
+              DEFAULT: "#C97D60",
+              foreground: "#262322",
             },
           },
         },
         dark: {
           colors: {
-            background: "#151515",
-            foreground: "#ffffff",
+            background: "#262322",
+            foreground: "#F2E5D7",
             primary: {
-              DEFAULT: "#81667A",
-              foreground: "#151515",
+              DEFAULT: "#C97D60",
+              foreground: "#262322",
             },
           },
         },

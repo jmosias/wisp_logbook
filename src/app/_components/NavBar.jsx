@@ -1,12 +1,19 @@
-import { getAllProductCollections } from "../_api";
+"use client";
+
+import { useEffect, useState } from "react";
+import { getAllProductCollections } from "../_lib/api";
 import NavSelect from "./NavSelect";
 
-export default async function NavBar() {
-  const collections = await getAllProductCollections();
+export default function NavBar() {
+  const [collections, setCollections] = useState(null);
+  useEffect(() => {
+    (async () => {
+      const res = await getAllProductCollections();
+      setCollections(res);
+    })();
+  }, []);
 
   return (
-    <div className="m-4">
-      <NavSelect collections={collections} />
-    </div>
+    <div>{collections !== null && <NavSelect collections={collections} />}</div>
   );
 }

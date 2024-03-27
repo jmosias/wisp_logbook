@@ -17,18 +17,18 @@ export default function NavSelect({ collections }) {
   return (
     <Select
       isRequired
-      aria-label="Collection"
+      aria-label="Current Collection"
       selectedKeys={[value]}
       onChange={handleSelectionChange}
       disallowEmptySelection
       classNames={{
-        value: "uppercase text-lg",
-        listbox: "uppercase",
+        value: "text-lg",
       }}
+      variant="bordered"
     >
       {collections.map((collection) => (
-        <SelectItem key={collection._id} value={collection.collectionPrefix}>
-          {`Collection ${collection.collectionPrefix}`}
+        <SelectItem key={collection._id} value={collection._id}>
+          {collection.name}
         </SelectItem>
       ))}
     </Select>

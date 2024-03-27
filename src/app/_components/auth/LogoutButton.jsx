@@ -1,6 +1,6 @@
 "use client";
 
-import { userLogout } from "@/app/_api";
+import { userLogout } from "@/app/_lib/api";
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 
@@ -17,8 +17,8 @@ export default function LogoutButton() {
   };
 
   return (
-    <>
-      <Button onClick={handleLogout}>Logout</Button>
-    </>
+    <Button onClick={handleLogout} color="danger" variant="faded">
+      Logout
+    </Button>
   );
 }

@@ -1,13 +1,13 @@
 import NavBar from "@/app/_components/NavBar";
 import ProductList from "@/app/_components/ProductList";
-import LogoutButton from "@/app/_components/auth/LogoutButton";
+import FloatingMenu from "@/app/_components/FloatingMenu";
 
 export default function App() {
   return (
-    <main>
+    <main className="h-screen p-8 flex flex-col gap-8 overflow-y-hidden">
       <NavBar />
       <ProductList />
-      <LogoutButton></LogoutButton>
+      <FloatingMenu />
     </main>
   );
 }

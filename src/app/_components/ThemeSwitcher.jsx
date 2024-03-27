@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from "@nextui-org/react";
+import { Switch } from "@nextui-org/react";
+import { RiSunLine, RiMoonLine } from "@remixicon/react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-
 export default function ThemeSwitcher() {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
@@ -20,8 +20,12 @@ export default function ThemeSwitcher() {
     theme === "dark" ? setTheme("light") : setTheme("dark");
 
   return (
-    <Button onClick={switchTheme} color="primary" variant="flat">
-      Switch
-    </Button>
+    <Switch
+      onValueChange={switchTheme}
+      size="lg"
+      color="primary"
+      startContent={<RiSunLine size="2rem" />}
+      endContent={<RiMoonLine size="2rem" />}
+    ></Switch>
   );
 }

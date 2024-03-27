@@ -36,25 +36,22 @@ const POST = async (url, data) => {
 };
 
 const api = {
-  getAllProductCollections: "/productCollections",
-
   // user
   userLogin: "/user/login",
   userRegister: "/user/register",
   getUserInfo: "/user/info",
   userLogout: "/user/logout",
-};
 
-export const getAllProductCollections = () => {
-  return GET(api.getAllProductCollections);
+  // collections
+  getAllProductCollections: "/productCollections/",
 };
 
 export const userLogin = (email, password) => {
   return POST(api.userLogin, { email, password });
 };
 
-export const userRegister = (email, password) => {
-  return POST(api.userRegister, { email, password });
+export const userRegister = (organizationName, email, password) => {
+  return POST(api.userRegister, { organizationName, email, password });
 };
 
 export const getUserInfo = () => {
@@ -63,4 +60,8 @@ export const getUserInfo = () => {
 
 export const userLogout = () => {
   return POST(api.userLogout);
+};
+
+export const getAllProductCollections = () => {
+  return GET(api.getAllProductCollections);
 };

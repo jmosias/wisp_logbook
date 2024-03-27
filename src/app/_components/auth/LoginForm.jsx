@@ -1,7 +1,7 @@
 "use client";
 
-import { userLogin } from "@/app/_api";
-import { Button, Input } from "@nextui-org/react";
+import { userLogin } from "@/app/_lib/api";
+import { Link, Button, Input } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import validator from "validator";
@@ -19,7 +19,7 @@ export default function LoginForm() {
     setFormError("");
     setForm((prevForm) => ({
       ...prevForm,
-      [name]: { ...prevForm[name], value },
+      [name]: { ...prevForm[name], value, error: "" },
     }));
   };
 
@@ -29,7 +29,7 @@ export default function LoginForm() {
     let isValid = true;
 
     if (!newForm.email.value || !validator.isEmail(newForm.email.value)) {
-      newForm.email.error = "Please type an email address";
+      newForm.email.error = "Please type a valid email address";
       isValid = false;
     } else {
       newForm.email.error = "";
@@ -52,7 +52,7 @@ export default function LoginForm() {
     }
 
     try {
-      const res = await userLogin(form.email.value, form.password.value);
+      await userLogin(form.email.value, form.password.value);
       push("/app");
     } catch (error) {
       setFormError(error.message);
@@ -60,25 +60,42 @@ export default function LoginForm() {
   };
 
   return (
-    <main>
-      <Input
-        type="email"
-        label="Email"
-        value={form.email.value}
-        onValueChange={(value) => handleInputChange("email", value)}
-        isInvalid={!!form.email.error || !!formError}
-        errorMessage={form.email.error}
-      ></Input>
-      <Input
-        type="password"
-        label="Password"
-        value={form.password.value}
-        onValueChange={(value) => handleInputChange("password", value)}
-        isInvalid={!!form.password.error || !!formError}
-        errorMessage={form.password.error}
-      ></Input>
-      <p>{formError}</p>
-      <Button onClick={handleLogin}>Login</Button>
-    </main>
+    <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-2">
+        <Input
+          type="email"
+          label="Email"
+          value={form.email.value}
+          onValueChange={(value) => handleInputChange("email", value)}
+          isInvalid={!!form.email.error || !!formError}
+          errorMessage={form.email.error}
+          variant="bordered"
+        ></Input>
+        <Input
+          type="password"
+          label="Password"
+          value={form.password.value}
+          onValueChange={(value) => handleInputChange("password", value)}
+          isInvalid={!!form.password.error || !!formError}
+          errorMessage={form.password.error}
+          variant="bordered"
+        ></Input>
+        <p className="text-danger text-sm">{formError}</p>
+      </div>
+      <Button
+        className="p-8 font-bold text-base"
+        onClick={handleLogin}
+        color="primary"
+      >
+        Login
+      </Button>
+      <Link
+        className="underline self-center"
+        href="/register"
+        color="foreground"
+      >
+        I don&apos;t have an account
+      </Link>
+    </div>
   );
 }
