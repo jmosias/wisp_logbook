@@ -1,6 +1,7 @@
+import useSWR from "swr";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
-const GET = async (url) => {
+const fetcher = async (url) => {
   try {
     const response = await fetch(BASE_URL + url, {
       credentials: "include",
@@ -14,6 +15,51 @@ const GET = async (url) => {
     throw new Error(error.message);
   }
 };
+
+export function useCollections() {
+  const { data, isLoading, mutate, error } = useSWR(
+    api.getAllProductCollections,
+    fetcher,
+    { revalidateOnFocus: false }
+  );
+
+  return {
+    collections: data,
+    isCollectionsLoading: isLoading,
+    mutateCollections: mutate,
+    isCollectionsError: error,
+  };
+}
+
+export function useTemplates() {
+  const { data, isLoading, mutate, error } = useSWR(
+    api.getAllProductTemplates,
+    fetcher,
+    { revalidateOnFocus: false }
+  );
+
+  return {
+    templates: data,
+    isTemplatesLoading: isLoading,
+    mutateTemplates: mutate,
+    isTemplatesError: error,
+  };
+}
+
+export function useProductItems() {
+  const { data, isLoading, mutate, error } = useSWR(
+    api.getAllProductItems,
+    fetcher,
+    { revalidateOnFocus: false }
+  );
+
+  return {
+    productItems: data,
+    isProductItemsLoading: isLoading,
+    mutateProductItems: mutate,
+    isProductItemsError: error,
+  };
+}
 
 const POST = async (url, data) => {
   try {
@@ -35,6 +81,28 @@ const POST = async (url, data) => {
   }
 };
 
+const PUT = async (url, data) => {
+  try {
+    const response = await fetch(BASE_URL + url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message);
+    }
+
+    return response;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 const api = {
   // user
   userLogin: "/user/login",
@@ -43,9 +111,17 @@ const api = {
   userLogout: "/user/logout",
 
   // collections
-  getAllProductCollections: "/productCollections/",
+  getAllProductCollections: "/productCollections",
+
+  // templates
+  getAllProductTemplates: "/productTemplates",
+
+  // items
+  getAllProductItems: "/productItems",
+  updateProductItems: "/productItems",
 };
 
+// user
 export const userLogin = (email, password) => {
   return POST(api.userLogin, { email, password });
 };
@@ -54,14 +130,11 @@ export const userRegister = (organizationName, email, password) => {
   return POST(api.userRegister, { organizationName, email, password });
 };
 
-export const getUserInfo = () => {
-  return GET(api.getUserInfo);
-};
-
 export const userLogout = () => {
   return POST(api.userLogout);
 };
 
-export const getAllProductCollections = () => {
-  return GET(api.getAllProductCollections);
+// product items
+export const updateProductItems = (items) => {
+  return PUT(api.updateProductItems, { items });
 };
