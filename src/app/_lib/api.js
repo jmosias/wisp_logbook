@@ -112,13 +112,16 @@ const api = {
 
   // collections
   getAllProductCollections: "/productCollections",
+  createProductCollection: "/productCollections",
 
   // templates
   getAllProductTemplates: "/productTemplates",
+  createProductTemplate: "/productTemplates",
 
   // items
   getAllProductItems: "/productItems",
   updateProductItems: "/productItems",
+  createProductItem: "/productItems",
 };
 
 // user
@@ -134,7 +137,21 @@ export const userLogout = () => {
   return POST(api.userLogout);
 };
 
+// collections
+export const createProductCollection = ({ name, templateId, codePrefix }) => {
+  return POST(api.createProductCollection, { name, templateId, codePrefix });
+};
+
+// templates
+export const createProductTemplate = ({ name, names }) => {
+  return POST(api.createProductTemplate, { name, names });
+};
+
 // product items
-export const updateProductItems = (items) => {
+export const updateProductItems = ({ items }) => {
   return PUT(api.updateProductItems, { items });
+};
+
+export const createProductItem = ({ details, collectionId, code }) => {
+  return POST(api.createProductItem, { details, collectionId, code });
 };

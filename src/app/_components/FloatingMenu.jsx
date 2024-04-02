@@ -29,7 +29,6 @@ export default function FloatingMenu() {
       )}
       <Modal
         classNames={{
-          wrapper: ["mt-[-5rem]"],
           base: ["bg-background"],
           body: [
             "p-8",
@@ -46,6 +45,24 @@ export default function FloatingMenu() {
         size="full"
         placement="top"
         hideCloseButton
+        motionProps={{
+          variants: {
+            enter: {
+              opacity: 1,
+              transition: {
+                duration: 0.15,
+                ease: "easeOut",
+              },
+            },
+            exit: {
+              opacity: 0,
+              transition: {
+                duration: 0.15,
+                ease: "easeIn",
+              },
+            },
+          },
+        }}
       >
         <ModalContent>
           {(onClose) => (

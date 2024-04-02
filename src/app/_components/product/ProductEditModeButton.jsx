@@ -21,7 +21,7 @@ export default function ProductEditModeButton() {
     setIsEditingProducts(false);
 
     try {
-      await updateProductItems(updatedItems);
+      await updateProductItems({ items: updatedItems });
       mutateProductItems();
     } catch (error) {
       console.log(error);

@@ -5,7 +5,6 @@ import { Link, Button, Input } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import validator from "validator";
-import LogoutButton from "./LogoutButton";
 
 export default function RegisterForm() {
   const { push } = useRouter();

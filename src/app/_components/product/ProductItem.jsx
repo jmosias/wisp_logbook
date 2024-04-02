@@ -1,10 +1,10 @@
-import { useTemplates } from "@/app/_lib/api";
 import { useAppStore } from "@/app/_lib/store";
 import { Input } from "@nextui-org/react";
 import { useState } from "react";
 
 export default function ProductItem({ item, currentTemplate }) {
   const [details, setDetails] = useState(item.details);
+  const [productCode, setProductCode] = useState(item.code);
   const isEditingProducts = useAppStore((state) => state.isEditingProducts);
   const addUpdatedItem = useAppStore((state) => state.addUpdatedItem);
 
@@ -19,10 +19,27 @@ export default function ProductItem({ item, currentTemplate }) {
     });
   };
 
+  const handleCodeChange = (newCode) => {
+    setProductCode(newCode);
+    addUpdatedItem(item._id, {
+      ...item,
+      code: newCode,
+    });
+  };
+
   return (
     <div className="flex gap-8">
       <div className="flex flex-col flex-1 text-sm">
-        <p className="font-bold">{item.code}</p>
+        {isEditingProducts ? (
+          <Input
+            label="Code"
+            variant="bordered"
+            value={productCode}
+            onValueChange={handleCodeChange}
+          ></Input>
+        ) : (
+          <p className="font-bold">{item.code}</p>
+        )}
       </div>
       <div className="flex flex-col gap-4 flex-4 ">
         {isEditingProducts ? (

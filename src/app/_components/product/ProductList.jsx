@@ -25,7 +25,7 @@ export default function ProductList({ productItems, templates }) {
         <ProductEditModeButton />
       </div>
 
-      <div className="h-full flex flex-col gap-4 overflow-y-auto">
+      <div className="h-full py-2 flex flex-col gap-8 overflow-y-auto">
         {currentCollectionId && filteredProductItems.length < 1 ? (
           <div className="text-center">This collection is empty</div>
         ) : (
@@ -42,7 +42,10 @@ export default function ProductList({ productItems, templates }) {
 
         {isEditingProducts && (
           <div className="self-center">
-            <ProductItemAddButton />
+            <ProductItemAddButton
+              currentTemplate={currentTemplate}
+              productListLength={filteredProductItems.length}
+            />
           </div>
         )}
       </div>
